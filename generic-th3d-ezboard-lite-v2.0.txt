@@ -1,6 +1,6 @@
 # This file contains common pin mappings for the TH3D EZBoard Lite v2.
 # To use this config, the firmware should be compiled for the
-# STM32F405 with USB communication.
+# STM32F407 with 48K Bootloader and USB communication.
 
 # The "make flash" command does not work on this board. Instead,
 # after running "make", copy the generated "out/klipper.bin" file to a
@@ -10,11 +10,11 @@
 # See docs/Config_Reference.md for a description of parameters.
 
 [mcu]
-serial: /dev/serial/by-id/usb-Klipper_lpc1768_00000000000000000000000000000000-if00
+serial: /dev/serial/by-id/usb-Klipper_stm32f407xx_1B002C001250535743373020-if00
 
 [printer]
 kinematics: cartesian
-max_velocity: 500
+max_velocity: 300
 max_accel: 3000
 max_z_velocity: 5
 max_z_accel: 100
@@ -25,16 +25,17 @@ dir_pin: PD2
 enable_pin: !PB5
 microsteps: 16
 rotation_distance: 40
-endstop_pin: ^PC1
+endstop_pin: ^!PC1
 position_endstop: 0
-position_max: 350
+position_max: 235
+homing_speed: 50
 
 [tmc2209 stepper_x]
 uart_pin: PC11
 tx_pin: PC10
 run_current: 0.600
 hold_current: 0.500
-stealthchop_threshold: 999999
+uart_address: 0
 
 [stepper_y]
 step_pin: PB8
@@ -42,16 +43,17 @@ dir_pin: PC13
 enable_pin: !PC12
 microsteps: 16
 rotation_distance: 40
-endstop_pin: ^PC2
+endstop_pin: ^!PC2
 position_endstop: 0
-position_max: 350
+position_max: 235
+homing_speed: 50
 
 [tmc2209 stepper_y]
 uart_pin: PC11
 tx_pin: PC10
 run_current: 0.600
 hold_current: 0.500
-stealthchop_threshold: 999999
+uart_address: 1
 
 [stepper_z]
 step_pin: PA3
@@ -59,16 +61,16 @@ dir_pin: PB1
 enable_pin: !PC14
 microsteps: 16
 rotation_distance: 8
-endstop_pin: ^PC3
+endstop_pin: ^!PC3
 position_endstop: 0.5
-position_max: 400
+position_max: 250
 
 [tmc2209 stepper_z]
 uart_pin: PC11
 tx_pin: PC10
 run_current: 0.700
 hold_current: 0.600
-stealthchop_threshold: 999999
+uart_address: 2
 
 [extruder]
 step_pin: PA15
@@ -86,7 +88,7 @@ pid_Kp: 22.2
 pid_Ki: 1.08
 pid_Kd: 114
 min_temp: 0
-max_temp: 210
+max_temp: 250
 
 [tmc2209 extruder]
 uart_pin: PC11
@@ -94,6 +96,7 @@ tx_pin: PC10
 run_current: 0.800
 hold_current: 0.700
 stealthchop_threshold: 999999
+uart_address: 3
 
 [heater_bed]
 heater_pin: PC9
@@ -120,10 +123,11 @@ pin: PC6
 # EXP1 / EXP2 (display) pins
 ########################################
 
-[board_pins]
-aliases:
-    # EXP1 header
-    EXP1_1=PA14, EXP1_3=PC4, EXP1_5=PC5, EXP1_7=PB12, EXP1_9=<GND>,
-    EXP1_2=PB0, EXP1_4=<RST>, EXP1_6=PB13, EXP1_8=PB15, EXP1_10=<5V>
+#board pins is depricated, the following is included for reference
+#[board_pins]
+#aliases:
+# EXP1 header
+#    EXP1_1=PA14, EXP1_3=PC4, EXP1_5=PC5, EXP1_7=PB12, EXP1_9=<GND>,
+#    EXP1_2=PB0, EXP1_4=<RST>, EXP1_6=PB13, EXP1_8=PB15, EXP1_10=<5V>
 
 # See the sample-lcd.cfg file for definitions of common LCD displays.
